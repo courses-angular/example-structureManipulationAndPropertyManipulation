@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
+import {ECardTypes, ICard} from "./cards/models/card.types";
 
 
 interface UserContext {
@@ -18,30 +19,32 @@ interface IUser {
             <h1 class="display-1">Angular
                 <span class="text-muted">Master Class</span>
             </h1>
-<!--            <ng-container *ylLoop="let name; when users; age 45;template tmpl"></ng-container>-->
-<!--            word 'user' here is $implicit-->
-            <ng-container *ylLoop="let user of users;template tmpl">
-                {{user | json}}
-                
-            </ng-container>
-            
-          <ng-template #tmpl>
-              <h3>Template</h3>
-          </ng-template>
 
-           
+            <ng-container *ylDeck="let card for cards"></ng-container>
         </div>
-
-
-
     `,
     styles: []
 })
 export class AppComponent implements AfterViewInit {
-   users = [
-       {name: 'Nit'},
-       {name: 'Alex'},
-       {name: 'Jojo'}
+   cards: ICard[] = [
+       {
+           type: ECardTypes.Plain,
+           title: 'The title',
+           text: 'The text'
+       },
+       {
+           type: ECardTypes.Plain,
+           title: 'Another title',
+           text: 'Another text'
+       },
+       {
+           type: ECardTypes.Primary,
+           title: 'Primary card',
+           text: 'Primary card text',
+           header: 'Primary card header',
+           smallText: 'Some small text'
+
+       }
    ];
     ngAfterViewInit(): void {
 
