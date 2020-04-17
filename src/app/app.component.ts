@@ -18,7 +18,9 @@ interface IUser {
             <h1 class="display-1">Angular
                 <span class="text-muted">Master Class</span>
             </h1>
-            <ng-container *ngFor="let user of users"></ng-container>
+            <ng-container *ylLoop="let name; when users; age 45"></ng-container>
+            
+          
 
            
         </div>
