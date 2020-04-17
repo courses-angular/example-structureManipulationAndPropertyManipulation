@@ -21,8 +21,10 @@ interface IUser {
 <!--            This ng-container get  'condition' as $implicit of template context-->
             <ng-container #container></ng-container>
 
-            <!--            *ngIf create Template-->
-            <ng-container *ngIf="condition">{{condition}}</ng-container>
+            <!--            *ngIf create Template -->
+            
+<!--            Use alias (as value) for no duplicates in <ng-container>-->
+            <ng-container *ngIf="condition as value">{{value}}</ng-container>
         </div>
 
 
