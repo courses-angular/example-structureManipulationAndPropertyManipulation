@@ -20,7 +20,18 @@ interface IUser {
                 <span class="text-muted">Master Class</span>
             </h1>
 
-            <ng-container *ylDeck="let card for cards"></ng-container>
+            <ng-container *ylDeck="let card for cards;primary altPrimary"></ng-container>
+            
+            <ng-template #altPrimary let-card>
+                <div class="card border-success mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body text-success">
+                        <h5 class="card-title">{{card.title}}</h5>
+                        <p class="card-text">{{card.text}}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">Footer</div>
+                </div>  
+            </ng-template>
         </div>
     `,
     styles: []
