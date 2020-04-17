@@ -1,13 +1,16 @@
 import {AfterViewInit, Component, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 
 
-interface UserContext{
-    user: IUser
+interface UserContext {
+    $implicit: IUser,
+    id: number
 }
+
 interface IUser {
-   name: string;
-   age: number;
+    name: string;
+    age: number;
 }
+
 @Component({
     selector: 'app-root',
     template: `
@@ -20,10 +23,13 @@ interface IUser {
 
         <ng-container #container></ng-container>
 
-        <ng-template #template let-user="user">
+        <ng-template #template let-user let-id="id">
             <h3>Some Content</h3>
-            <span>{{user.name}}</span>
-            <span>{{user.age}}</span>
+            <span>User name: {{user.name}}</span>
+            <br>
+            <span>User age:{{user.age}}</span>
+            <br>
+            <span>Id:{{id}}</span>
         </ng-template>
 
     `,
@@ -34,11 +40,12 @@ export class AppComponent implements AfterViewInit {
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef
 
     ngAfterViewInit(): void {
-        this.container.createEmbeddedView(this.template,{
-            user: {
+        this.container.createEmbeddedView(this.template, {
+            $implicit: {
                 name: 'Nir',
                 age: 28
-            }
+            },
+            id: 5
         })
     }
 }
