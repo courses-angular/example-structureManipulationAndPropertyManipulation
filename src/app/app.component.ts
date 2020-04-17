@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 
 
 interface UserContext {
@@ -18,45 +18,33 @@ interface IUser {
             <h1 class="display-1">Angular
                 <span class="text-muted">Master Class</span>
             </h1>
+<!--            This ng-container get  'condition' as $implicit of template context-->
+            <ng-container #container></ng-container>
+
+            <!--            *ngIf create Template-->
+            <ng-container *ngIf="condition">{{condition}}</ng-container>
         </div>
 
 
-        <ng-container #container></ng-container>
-
-<!--Shorter way-->
-        <ng-template [ngTemplateOutlet]="template" 
-                     [ngTemplateOutletContext]="{$implicit: {name: 'Nir'}}">
-        </ng-template>
-<!--Longer way-->
-        <ng-template #template let-user let-id="id">
-            <h3>Some Content</h3>
-            <span>User Id:{{user.id}}</span>
-            <br>
-            <span>User name: {{user.name}}</span>
-            <br>
-            <span>User age:{{user.age}}</span>
-        </ng-template>
 
     `,
     styles: []
 })
-export class AppComponent implements AfterViewInit {
-    @ViewChild('template') template: TemplateRef<UserContext>
+export class AppComponent implements AfterViewInit, OnInit {
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef
+    @ViewChild(TemplateRef) template: TemplateRef<any>
+    condition: string;
 
-    users: IUser[] = [
-        {name: 'Igor', age: 30, id: 1},
-        {name: 'Nir', age: 22, id: 2},
-        {name: 'Alex', age: 34, id: 3}
-    ]
+
+    ngOnInit(): void {
+        setTimeout(() => {
+            this.condition = 'Resolved!!'
+        }, 3000)
+    }
 
     ngAfterViewInit(): void {
-        this.users.forEach(user => {
-            this.container.createEmbeddedView(this.template, {
-                $implicit: user,
-
-            })
-        })
+        console.log(this.template)
+        this.container.createEmbeddedView(this.template);
 
     }
 }
