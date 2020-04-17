@@ -18,9 +18,16 @@ interface IUser {
             <h1 class="display-1">Angular
                 <span class="text-muted">Master Class</span>
             </h1>
-            <ng-container *ylLoop="let name; when users; age 45"></ng-container>
+<!--            <ng-container *ylLoop="let name; when users; age 45;template tmpl"></ng-container>-->
+<!--            word 'user' here is $implicit-->
+            <ng-container *ylLoop="let user of users;template tmpl">
+                {{user | json}}
+                
+            </ng-container>
             
-          
+          <ng-template #tmpl>
+              <h3>Template</h3>
+          </ng-template>
 
            
         </div>
@@ -31,7 +38,11 @@ interface IUser {
     styles: []
 })
 export class AppComponent implements AfterViewInit {
-   users = [];
+   users = [
+       {name: 'Nit'},
+       {name: 'Alex'},
+       {name: 'Jojo'}
+   ];
     ngAfterViewInit(): void {
 
 
